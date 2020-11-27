@@ -8,7 +8,7 @@ def print_board(board):
         for j in range(0, 8):
             try:
                 mat[i][j] = str(board[(i, j)])
-            except KeyError as e:
+            except KeyError:
                 mat[i][j] = "   "
     print_colored_board(mat)
 

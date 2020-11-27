@@ -1,13 +1,13 @@
-from utils import *
-from constants import *
-from board_printer import *
-from input_parser import *
+from utils import uniDict, initial_Order, is_check
+from constants import WHITE, BLACK
+from board_printer import print_board
+from input_parser import parse_input
+from army.pawn import Pawn
 
 
 class Game:
     def __init__(self):
         self.players_turn = BLACK
-        self.message = "Enter your moves"
         self.board = {}
         self.setup_board()
         print("Black will start first.")
@@ -20,39 +20,38 @@ class Game:
             self.board[(6, i)] = Pawn(BLACK, uniDict[BLACK][Pawn], -1)
 
         for i in range(0, 8):
-            self.board[(7, i)] = initial_Order[i](BLACK, uniDict[BLACK][initial_Order[i]])
-            self.board[(0, (7 - i))] = initial_Order[i](WHITE, uniDict[WHITE][initial_Order[i]])
+            self.board[(7, i)] = initial_Order[i](
+                BLACK, uniDict[BLACK][initial_Order[i]])
+            self.board[(0, (7 - i))] = initial_Order[i](
+                WHITE, uniDict[WHITE][initial_Order[i]])
 
     def start_game(self):
         game_end = False
-        while game_end == False:
+        while game_end is False:
             print_board(self.board)
             if self.players_turn == BLACK:
-                self.message = "Black's turn"
+                print("Black's turn")
             if self.players_turn == WHITE:
-                self.message = "White's turn"
-            print(self.message)
-            self.message = ""
+                print("White's turn")
             start_pos, end_pos = parse_input()
             try:
                 target = self.board[start_pos]
-            except KeyError as e:
-                self.message = "Could not find piece; index probably out of range"
-                print(self.message)
+            except KeyError:
+                print("Could not find piece; "
+                      "index probably out of range")
                 target = None
 
             if target:
                 if target.color != self.players_turn:
-                    self.message = "Wait for your turn"
-                    print(self.message)
+                    print("Wait for your turn")
                     continue
-                if target.is_valid(start_pos, end_pos, target.color, self.board):
+                if target.is_valid(start_pos, end_pos, target.color,
+                                   self.board):
                     game_end = self.process_valid_move(end_pos, start_pos)
                 else:
-                    self.message = "Invalid move"
-                    print(self.message)
+                    print("Invalid move")
             else:
-                self.message = "There is no piece in that space"
+                print("There is no piece in that space")
         print_board(self.board)
 
     def process_valid_move(self, end_pos, start_pos):

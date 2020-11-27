@@ -7,7 +7,8 @@ class Piece:
         self.color = color
 
     def is_valid(self, start_pos, end_pos, color, board):
-        if end_pos in self.available_moves(start_pos[0], start_pos[1], board, color):
+        if end_pos in self.available_moves(
+                start_pos[0], start_pos[1], board, color):
             return True
         return False
 
@@ -41,7 +42,8 @@ class Piece:
         return False
 
     def no_conflict(self, board, initial_color, x, y):
-        if self.is_in_bound(x, y) and (((x, y) not in board) or board[(x, y)].color != initial_color):
+        if self.is_in_bound(x, y) and (((x, y) not in board) or
+                                       board[(x, y)].color != initial_color):
             return True
         return False
 

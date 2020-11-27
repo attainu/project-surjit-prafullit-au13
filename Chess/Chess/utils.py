@@ -4,16 +4,17 @@ from army.rook import Rook
 from army.bishop import Bishop
 from army.queen import Queen
 from army.knight import Knight
-from constants import *
+from constants import WHITE, BLACK
 
-uniDict = {WHITE: {Pawn: " ♙ ", Rook: " ♖ ", Knight: " ♘ ", Bishop: " ♗ ", King: " ♔ ", Queen: " ♕ "},
-           BLACK: {Pawn: " ♟ ", Rook: " ♜ ", Knight: " ♞ ", Bishop: " ♝ ", King: " ♚ ", Queen: " ♛ "}}
+uniDict = {WHITE: {Pawn: " ♙ ", Rook: " ♖ ", Knight: " ♘ ",
+                   Bishop: " ♗ ", King: " ♔ ", Queen: " ♕ "},
+           BLACK: {Pawn: " ♟ ", Rook: " ♜ ", Knight: " ♞ ",
+                   Bishop: " ♝ ", King: " ♚ ", Queen: " ♛ "}}
 
 initial_Order = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
 
 
 def is_check(board):
-    king = King
     king_dict = {}
     piece_dict = {BLACK: [], WHITE: []}
     for position, piece in board.items():
@@ -24,15 +25,14 @@ def is_check(board):
     try:
         if can_see_king(board, king_dict[WHITE], piece_dict[BLACK]):
             return False, "White player is in check"
-    except KeyError as e:
+    except KeyError:
         return True, "Game End, Black Wins"
     try:
         if can_see_king(board, king_dict[BLACK], piece_dict[WHITE]):
             return False, "Black player is in check"
-    except KeyError as e:
+    except KeyError:
         return True, "Game End, white Wins"
     return False, ""
-   
 
 
 def can_see_king(board, king_pos, piece_list):
