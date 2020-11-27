@@ -12,5 +12,5 @@ cd Chess
 chess.py
 ~~~
 ### Future goals would be:
- [ ] I will try to add the stalemate and castling option.
- [ ] I will add multiple themes using combinations of different colors, so that players can choose their favourite template at the beginning of the game. 
+- [ ] I will try to add the stalemate and castling option.
+- [ ] I will add multiple themes using combinations of different colors, so that players can choose their favourite template at the beginning of the game. 
