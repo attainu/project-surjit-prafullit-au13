@@ -14,9 +14,9 @@ class Pawn(Piece):
                 self.no_conflict(board, color, x + self.direction, y + 1):
             answers.append((x + self.direction, y + 1))
 
-        if (x - self.direction, y - 1) in board and \
+        if (x + self.direction, y - 1) in board and \
                 self.no_conflict(board, color, x + self.direction, y - 1):
-            answers.append((x - self.direction, y - 1))
+            answers.append((x + self.direction, y - 1))
 
         if (x + self.direction, y) not in board and color == self.color:
             answers.append((x + self.direction, y))
